@@ -11,6 +11,8 @@ class Container:
     def new_circle(self, color, event):
         if (self.lp_x, self.lp_y) == (None, None):
             self.objects.append(Circle(event.x, event.y, color, self.canvas))
+        else:
+            self.lp_x, self.lp_y = None, None
 
     def __getattribute__(self, name):  # paint
         attr = super().__getattribute__(name)
@@ -32,16 +34,16 @@ class Container:
             obj.select()
             # break
 
-    def move(self, event):
+    def process_interaction(self, action, event):
         if (self.lp_x, self.lp_y) == (None, None):
             self.lp_x, self.lp_y = event.x, event.y
         else:
             for obj in self.objects:
-                obj.move(event.x - self.lp_x, event.y - self.lp_y)
+                if action == "move":
+                    obj.move(event.x - self.lp_x, event.y - self.lp_y)
+                elif action == "resize":
+                    obj.resize(self.lp_x, self.lp_y, event.x, event.y)
             self.lp_x, self.lp_y = event.x, event.y
-
-    def button_release(self, _):
-        self.lp_x, self.lp_y = None, None
 
     def fill(self, color):
         for obj in self.objects:

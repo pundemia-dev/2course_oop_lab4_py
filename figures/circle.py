@@ -30,9 +30,11 @@ class Circle:
                                 fill=self.color,
                                 width=5,
                                 outline=border_color)  # negative
-    def resize(self, event):
+    def resize(self, lp_x, lp_y, n_x, n_y):
         if self.selected:
-            pass
+            l_dist = sqrt((lp_x-self.x)**2 + (lp_y-self.y)**2)
+            n_dist = sqrt((n_x-self.x)**2 + (n_y-self.y)**2)
+            self.radius += n_dist - l_dist
 
     def move(self, x_offset, y_offset):
         if self.selected:

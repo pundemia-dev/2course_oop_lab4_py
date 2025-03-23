@@ -9,7 +9,6 @@ class Paint(customtkinter.CTkFrame):
     def __init__(self, master):
         super().__init__(master)
         self.default_color = "#6B8E23"  # CD5C5C
-        self.brush_size = 40
         self.configure(fg_color="#242424")
         self.grid_rowconfigure(0, weight=0)
         self.grid_rowconfigure(1, weight=1)
@@ -38,20 +37,20 @@ class Paint(customtkinter.CTkFrame):
         self.master.unbind_class("CTkButton", "<Escape>")    
 
     def enable_canvas_binds(self, _):
-        self.canvas.bind("<Button-1>", lambda event: self.container.new_circle(self.palette_frame.get(), event))
+        self.canvas.bind("<ButtonRelease-1>", lambda event: self.container.new_circle(self.palette_frame.get(), event))
         self.canvas.bind("<Button-3>", self.container.select_objects)
         self.master.bind("<Delete>", self.container.delete_objects)
         self.master.bind("<BackSpace>", self.container.delete_objects)
         self.master.bind("<Escape>", self.container.unselect_objects)
-        self.canvas.bind("<B1-Motion>", self.container.move)
-        self.canvas.bind("<ButtonRelease-1>", self.container.button_release)
+        self.canvas.bind("<B1-Motion>", lambda event: self.container.process_interaction("move", event))
+        self.canvas.bind("<Shift-B1-Motion>", lambda event: self.container.process_interaction("resize", event))
 
     def disable_canvas_binds(self, _):
-        self.canvas.unbind("<Button-1>")
+        self.canvas.unbind("<ButtonRelease-1>")
         self.canvas.unbind("<Button-3>")
         self.master.unbind("<Delete>")
         self.master.unbind("<BackSpace>")
         self.master.unbind("<Escape>")
         self.canvas.unbind("<B1-Motion>")
-        self.canvas.unbind("<ButtonRelease-1>")
+        self.canvas.unbind("<Shift-B1-Motion>")
 
