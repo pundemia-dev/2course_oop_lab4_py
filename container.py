@@ -1,20 +1,19 @@
-from figures.circle import Circle
-from figures.oval import Oval
-from figures.square import Square
-from figures.rectangle import Rectangle
-from figures.line import Line
-from figures.vector_tools import Point
+from vector_tools import Point
 
 
 class Container:
     def __init__(self, canvas):
+        self.classes = dict()
         self.objects = list()
         self.canvas = canvas
         self.lp = Point(None, None)
+    
+    def add_class(self, new_class, class_id):
+        self.classes[class_id] = new_class
 
-    def new_circle(self, color, event):
+    def new_obj(self, color, class_id, event):
         if (self.lp) == Point(None, None):
-            self.objects.append(Line(event, color, self.canvas))
+            self.objects.append(self.classes[class_id](event, color, self.canvas))
         else:
             self.lp = Point(None, None)
 

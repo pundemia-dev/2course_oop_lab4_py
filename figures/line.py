@@ -1,5 +1,7 @@
 from math import hypot
-from figures.vector_tools import Point, constrain
+from vector_tools import Point, constrain
+
+info = ("─", 25, "Line")
 
 
 class Line:

@@ -3,7 +3,8 @@ from tkinter import Canvas
 from container import Container
 from figure_buttons import Figures 
 from palette import Palette
-
+import importlib
+import os
 
 class Paint(customtkinter.CTkFrame):
     def __init__(self, master):
@@ -29,6 +30,15 @@ class Paint(customtkinter.CTkFrame):
         self.palette_frame = Palette(self, self.container.fill)
         self.palette_frame.grid(row=0, column=1, padx=0, pady=0, sticky="nsew")
         
+        for file in filter(lambda x: ".py" in x, os.listdir("figures/")):
+            module = importlib.import_module(f"figures.{file.split(".")[0]}")
+            info = getattr(module, "info")
+            new_class = getattr(module, info[-1])
+            self.container.add_class(new_class, info[-1])
+            self.figures_frame.add_info(info)
+
+        self.figures_frame.create_buttons()
+        
     def enable_figures_binds(self, _):
         self.master.bind("<Escape>", self.figures_frame.unselect_figure)
         self.master.bind_class("CTkButton", "<Escape>", self.figures_frame.unselect_figure)
@@ -37,7 +47,7 @@ class Paint(customtkinter.CTkFrame):
         self.master.unbind_class("CTkButton", "<Escape>")    
 
     def enable_canvas_binds(self, _):
-        self.canvas.bind("<ButtonRelease-1>", lambda event: self.container.new_circle(self.palette_frame.get(), event))
+        self.canvas.bind("<ButtonRelease-1>", lambda event, class_id=self.figures_frame.selected_figure: self.container.new_obj(self.palette_frame.get(), class_id, event) if class_id else None)
         self.canvas.bind("<Button-3>", self.container.select_objects)
         self.master.bind("<Delete>", self.container.delete_objects)
         self.master.bind("<BackSpace>", self.container.delete_objects)
