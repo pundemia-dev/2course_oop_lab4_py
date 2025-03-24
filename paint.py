@@ -44,6 +44,7 @@ class Paint(customtkinter.CTkFrame):
         self.master.bind("<Escape>", self.container.unselect_objects)
         self.canvas.bind("<B1-Motion>", lambda event: self.container.process_interaction("move", event))
         self.canvas.bind("<Shift-B1-Motion>", lambda event: self.container.process_interaction("resize", event))
+        self.master.bind("<Control-a>", self.container.select_all_objects)
 
     def disable_canvas_binds(self, _):
         self.canvas.unbind("<ButtonRelease-1>")
@@ -53,4 +54,5 @@ class Paint(customtkinter.CTkFrame):
         self.master.unbind("<Escape>")
         self.canvas.unbind("<B1-Motion>")
         self.canvas.unbind("<Shift-B1-Motion>")
+        self.master.unbind("Control-a")
 
