@@ -1,4 +1,4 @@
-from math import sqrt
+from math import hypot
 from figures.vector_tools import Point, constrain
 
 
@@ -11,10 +11,10 @@ class Circle:
         self.selected = False
 
     def check_point(self, p) -> bool:
-        return ((p.x - self.p.x) ** 2 + (p.y - self.p.y) ** 2) <= self.radius ** 2
+        return hypot(p.x - self.p.x, p.y - self.p.y) <= self.radius 
 
     def dist_point(self, p):
-        return sqrt((p.x - self.p.x) ** 2 + (p.y - self.p.y) ** 2)
+        return hypot(p.x - self.p.x, p.y - self.p.y)
 
     def select(self):
         self.selected = not (self.selected)
@@ -32,8 +32,8 @@ class Circle:
                                 outline=border_color)  # negative
     def resize(self, lp, np):
         if self.selected:
-            l_dist = sqrt((lp.x-self.p.x)**2 + (lp.y-self.p.y)**2)
-            n_dist = sqrt((np.x-self.p.x)**2 + (np.y-self.p.y)**2)
+            l_dist = hypot(lp.x-self.p.x, lp.y-self.p.y)
+            n_dist = hypot(np.x-self.p.x, np.y-self.p.y)
             self.radius = self.constrain_circle_resize(self.radius+int(n_dist - l_dist))
 
     def move(self, offset:Point):

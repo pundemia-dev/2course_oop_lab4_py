@@ -9,6 +9,7 @@ class Point:
         elif len(args) == 2 :
             self.x = args[0]
             self.y = args[1]
+    
     def inc(self, p):
         return Point(self.x + p.x, self.y + p.y)
 
@@ -19,6 +20,7 @@ class Point:
         if isinstance(other, Point):
             return self.x == other.x and self.y == other.y
         return False
+ 
 
 
 def constrain(lower_limit:int, upper_limit:int, value:int) -> int:

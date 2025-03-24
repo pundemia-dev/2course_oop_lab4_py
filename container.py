@@ -1,4 +1,8 @@
 from figures.circle import Circle
+from figures.oval import Oval
+from figures.square import Square
+from figures.rectangle import Rectangle
+from figures.line import Line
 from figures.vector_tools import Point
 
 
@@ -10,7 +14,7 @@ class Container:
 
     def new_circle(self, color, event):
         if (self.lp) == Point(None, None):
-            self.objects.append(Circle(event, color, self.canvas))
+            self.objects.append(Line(event, color, self.canvas))
         else:
             self.lp = Point(None, None)
 
