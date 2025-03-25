@@ -1,5 +1,5 @@
 from math import hypot
-from vector_tools import Point, constrain
+from core.vector_tools import Point, constrain
 
 info = ("◯", 20, "Circle")
 

@@ -1,4 +1,4 @@
-from vector_tools import Point
+from core.vector_tools import Point
 
 
 class Container:

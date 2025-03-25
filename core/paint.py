@@ -1,8 +1,8 @@
 import customtkinter
 from tkinter import Canvas
-from container import Container
-from figure_buttons import Figures 
-from palette import Palette
+from core.container import Container
+from core.figure_buttons import Figures 
+from core.palette import Palette
 import importlib
 import os
 
