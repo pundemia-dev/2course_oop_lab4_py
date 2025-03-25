@@ -30,8 +30,8 @@ class Paint(customtkinter.CTkFrame):
         self.palette_frame = Palette(self, self.container.fill)
         self.palette_frame.grid(row=0, column=1, padx=0, pady=0, sticky="nsew")
         
-        for file in filter(lambda x: ".py" in x, os.listdir("figures/")):
-            module = importlib.import_module(f"figures.{file.split(".")[0]}")
+        for file in filter(lambda x: ".py" in x, os.listdir("core/figures/")):
+            module = importlib.import_module(f"core.figures.{file.split(".")[0]}")
             info = getattr(module, "info")
             new_class = getattr(module, info[-1])
             self.container.add_class(new_class, info[-1])
